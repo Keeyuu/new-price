@@ -4,6 +4,10 @@ mongo:
   all_code: all_code
   collection_day: day_
   day_size: 10
+net:
+  stock_url: http://api.waizaowang.com/doc/getStockHSABaseInfo?code=all&fields=code,name,market,bk,roe,zgb,ltgb,ltsz,zsz,ssdate&export=1&token=febb869f0979d084c4a8d17ce45ea866
+  fund_url: http://api.waizaowang.com/doc/getCnFundBaseInfo?code=all&fields=code,name,market,bk,roe,zgb,ltgb,ltsz,zsz,ssdate&export=1&token=febb869f0979d084c4a8d17ce45ea866
+
 
 # size: 90
 

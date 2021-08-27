@@ -13,6 +13,7 @@ type Config struct {
 	// CommonHead []Data `yaml:"commonHead"`
 	// Cookies    []Data `yaml:"cookies"`
 	Mongo Mongo `yaml:"mongo"`
+	Net   Net   `yaml:"net"`
 	// Size       int    `yaml:"size"`
 }
 
@@ -20,6 +21,11 @@ type Config struct {
 // 	Key   string `yaml:"key"`
 // 	Value string `yaml:"value"`
 // }
+
+type Net struct {
+	StockCodeUrl string `yaml:"stock_url"`
+	FundCodeUrl  string `yaml:"fund_url"`
+}
 
 type Mongo struct {
 	Database      string `yaml:"database"`
