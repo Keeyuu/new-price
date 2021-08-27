@@ -1,7 +1,25 @@
 package main
 
-import "service/db"
+import (
+	"context"
+	"service/config"
+	"service/dao/db"
+	"service/data"
+	"service/util"
+)
 
 func main() {
-	db.GetMg()
+	list, err := data.ReadAll()
+	if err != nil {
+		return
+	}
+	col := db.GetCollection(config.Get().Mongo.AllCode)
+	for _, c := range list {
+		c.UpdateAt = util.GetDay()
+		if _, err := col.InsertOne(context.TODO(), c); err != nil {
+			println(err)
+			continue
+		}
+	}
+
 }
