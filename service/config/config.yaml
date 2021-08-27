@@ -1,0 +1,44 @@
+mongo:
+  uri: mongodb://127.0.0.1:27017
+  database: price
+  all_code: all_code
+  collection_day: day_
+  day_size: 10
+
+# size: 90
+
+# cookies:
+#   - key: Cookie
+#     value: acw_tc=2760820516233358357134244e7d33ebf41d262daaa394cd20b0debbeb3b42; xq_a_token=ac3c2b00373aafa819dd63230fff55140e7d0bb4; xqat=ac3c2b00373aafa819dd63230fff55140e7d0bb4; xq_r_token=c73c6ef7939ae99173067d99572528058c22bed7; xq_id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOi0xLCJpc3MiOiJ1YyIsImV4cCI6MTYyNTEwNzgwNiwiY3RtIjoxNjIzMzM1Nzk5NDU2LCJjaWQiOiJkOWQwbjRBWnVwIn0.R992em1KEn11IAVhCKrrjIC_JG8ZL0cHoUKAqmGIU42inkuNEnSS-6Trt_QM-l8Gf_IyXS44r-olTBVfxZNka09TdCZuMz84OTs6sDvIyA4oNUOQMRVdyA13ZoQ8Rs16EnB6DRzzjRqeLwjDVbF_FnKt7rByB7fP2fnVGylCDBmD5V3uvsUw4FsU4MAFRJ3NRcilwyNLRgYFTrF3S96RIvT8YXNqG5iGZgTEhdvmuoNqonY-zoD9LojymT7HpV7kH-Fza_pC-0yiuxuEyPjwaUVpDP57pivSKD9uUzq60I6NbEBBqCqzMT38zUO5n5Q6ldMu8jIGtW7lRa8VIEkPgA; u=271623335835722; Hm_lvt_1db88642e346389874251b5a1eded6e3=1623335837; device_id=24700f9f1986800ab4fcc880530dd0ed; s=co110n9mbq; __utma=1.1766415680.1623335841.1623335841.1623335841.1; __utmc=1; __utmz=1.1623335841.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmt=1; __utmb=1.3.10.1623335841; Hm_lpvt_1db88642e346389874251b5a1eded6e3=1623336145
+#   - key: Cookie
+#     value: s=ck13q7bomt; xq_a_token=ac3c2b00373aafa819dd63230fff55140e7d0bb4; xq_r_token=c73c6ef7939ae99173067d99572528058c22bed7; xq_id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOi0xLCJpc3MiOiJ1YyIsImV4cCI6MTYyNTEwNzgwNiwiY3RtIjoxNjIzMzc5NzM2MDQxLCJjaWQiOiJkOWQwbjRBWnVwIn0.knq-RFnGWuVJCQZ4l4VLD8ZejDIOtkZUKx0PVR6x4Q6kuV4ZyxuVhKrVqUD-Jxzk7Gpu1ypVtcjyocUqMH4DX-D728g2M4v_fwgAKz5PqsGL1HqcdKmi3qDr_EjepjCnjFjtSBPISiPx15ImlC52w5dN_BOISkHWlDyq3FtCTude4F24g4gKYilYCSCyX-XEGiVLYTLwgOhFOkssAEcBYdS1YRJpsfeq7TJ3SEDcixJBSarAY5MhHRy8PpFFOICGkpT0arB-AHvbxPdV-VRZqfrT441OMaqLiXgssoaMyTNVSdGytfO7CL5dRG-_7cisWbDGtWtycIGH8mRndvYUIg; acw_tc=2760820616233824704606739eacc52f57479b2869d541dee02c5f08d3ab56
+
+# commonHead:
+#   - key: "Accept"
+#     value: "*/*"
+#   - key: Accept-Encoding
+#     value: gzip, deflate, br
+#   - key: Accept-Language
+#     value: zh-CN,zh;q=0.9
+#   - key: cache-control
+#     value: no-cache
+#   - key: Connection
+#     value: keep-alive
+#   - key: Host
+#     value: xueqiu.com
+#   - key: Referer
+#     value: https://xueqiu.com/hq
+#   - key: sec-ch-ua
+#     value: " Not A;Brand;v=99, Chromium;v=90, Google Chrome;v=90"
+#   - key: sec-ch-ua-mobile
+#     value: "?0"
+#   - key: Sec-Fetch-Dest
+#     value: empty
+#   - key: Sec-Fetch-Mode
+#     value: cors
+#   - key: Sec-Fetch-Site
+#     value: same-origin
+#   - key: User-Agent
+#     value: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36
+#   - key: X-Requested-With
+#     value: XMLHttpRequest
