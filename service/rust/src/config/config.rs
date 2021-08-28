@@ -17,7 +17,8 @@ impl Config {
 					println!("{}", err);
 					return Config::None;
 				}
-				if let Ok(c) = serde_yaml::from_str(&s) {};
+				let a = serde_yaml::from_str::<Config>(&s);
+				// if let Ok(c) = serde_yaml::from_str(&s) {};
 			}
 			Err(fd) => {
 				println!("{}", fd);
