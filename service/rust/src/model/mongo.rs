@@ -1,19 +1,19 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Code {
 	pub type_: String,
-	// pub code: String,
-	// pub name: String,
-	// pub market: i32,
-	// pub hsgt: i32,
-	// pub bk: String,
-	// pub roe: f32,
-	// pub zgb: i128,
-	// pub ltgb: i128,
-	// pub ltsz: i128,
-	// pub zsz: i128,
-	// pub ssdate: String,
+	pub code: String,
+	pub name: String,
+	pub market: i32,
+	pub hsgt: i32,
+	pub bk: String,
+	pub roe: f32,
+	pub zgb: i128,
+	pub ltgb: i128,
+	pub ltsz: i128,
+	pub zsz: i128,
+	pub ssdate: String,
 }
 
 impl Code {
