@@ -16,6 +16,28 @@ pub struct Code {
 	pub ssdate: String,
 }
 
+#[derive(Debug, Serialize, Deserialize, Default)]
+pub struct RsbCode {
+	pub code: String,
+	pub name: String,
+	pub market: i32,
+	pub hsgt: i32,
+	pub bk: String,
+	pub roe: f32,
+	pub zgb: i128,
+	pub ltgb: i128,
+	pub ltsz: i128,
+	pub zsz: i128,
+	pub ssdate: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Default)]
+pub struct ResCodeBody {
+	code: i32,
+	message: String,
+	data: Vec<RsbCode>,
+}
+
 impl Code {
 	pub fn to_stock(&mut self) {
 		self.type_ = "stock".to_string();
