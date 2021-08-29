@@ -18,9 +18,10 @@ pub async fn import_code(c: &Config, d: &Mongo) -> Result<()> {
 	let mut buf_fund = String::new();
 	fd_code.read_to_string(&mut buf_code).context("3")?;
 	fd_fund.read_to_string(&mut buf_fund).context("4")?;
-	// let a = serde_json::from_str::<Vec<SourceCode>>(&buf_code).context("5")?;
-	// import(c, d, &a, "stock".to_string()).await?;
+	let a = serde_json::from_str::<Vec<SourceCode>>(&buf_code).context("5")?;
 	let b = serde_json::from_str::<Vec<SourceCode>>(&buf_fund).context("6")?;
+	// !导数据前注意清库
+	import(c, d, &a, "stock".to_string()).await?;
 	import(c, d, &b, "fund".to_string()).await?;
 	println!("{}", "data import ok");
 	Ok(())
