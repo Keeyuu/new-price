@@ -3,6 +3,7 @@ mod db;
 mod model;
 use anyhow::Result;
 use config::Config;
+use mongodb::bson::doc;
 use tokio;
 const TABLE_SIZE: usize = 10;
 fn main() -> Result<()> {
@@ -13,11 +14,16 @@ fn main() -> Result<()> {
 
 async fn start(c: config::Config) -> Result<()> {
     let database = db::Mongo::new(&c.mongo.url, &c.mongo.database).await?;
-    // let code = database.collection(&c.mongo.table_code).await;
-    let a = model::Code {
-        type_: String::from("ccc"),
-    };
-    database.insert(&c.mongo.table_code, a, None).await?;
-    // code.insert_many(a, None).await?;
+    // let a = model::Code {
+    //     type_: String::from("ccc"),
+    // };
+    let eee = database
+        .collection::<model::Code>(&c.mongo.table_code)
+        .await;
+    let filter = doc! { "type_": "ccc" };
+    let bbb = eee.find_one(filter, None).await?;
+    println!("{:?}", bbb);
+    // c.find();
+    // database.insert(&c.mongo.table_code, a, None).await?;
     Ok(())
 }
