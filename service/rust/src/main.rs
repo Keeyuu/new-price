@@ -1,6 +1,8 @@
 mod config;
 mod db;
+use config::Config;
 fn main() {
     println!("Hello, world!");
-    config::Config::new();
+    let a = Config::get();
+   
 }
