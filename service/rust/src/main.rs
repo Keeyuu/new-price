@@ -1,11 +1,22 @@
 mod config;
 mod db;
+mod model;
 use anyhow::Result;
 use config::Config;
+use tokio;
 const TABLE_SIZE: usize = 10;
 fn main() -> Result<()> {
-    println!("Hello, world!");
     let config = Config::get()?;
-    println!("{}", config.mongo.table_code);
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.block_on(start(config))
+}
+
+async fn start(c: config::Config) -> Result<()> {
+    let database = db::Mongo::new(&c.mongo.url, &c.mongo.database).await?;
+    let code = database.collection(&c.mongo.table_code).await;
+    let a = vec![model::Code {
+        type_: String::from("aaa"),
+    }];
+    code.insert_many(a, None).await?;
     Ok(())
 }
