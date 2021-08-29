@@ -1,41 +1,32 @@
 use serde::{Deserialize, Serialize};
-
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Code {
 	pub type_: String,
+	pub data: SourceCode,
+}
+
+#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+pub struct SourceCode {
 	pub code: String,
 	pub name: String,
 	pub market: i32,
 	pub hsgt: i32,
 	pub bk: String,
 	pub roe: f32,
-	pub zgb: i128,
-	pub ltgb: i128,
-	pub ltsz: i128,
-	pub zsz: i128,
+	pub zgb: f64,
+	pub ltgb: f64,
+	pub ltsz: f64,
+	pub zsz: f64,
 	pub ssdate: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Default)]
-pub struct RsbCode {
-	pub code: String,
-	pub name: String,
-	pub market: i32,
-	pub hsgt: i32,
-	pub bk: String,
-	pub roe: f32,
-	pub zgb: i128,
-	pub ltgb: i128,
-	pub ltsz: i128,
-	pub zsz: i128,
-	pub ssdate: String,
-}
-
-#[derive(Debug, Serialize, Deserialize, Default)]
-pub struct ResCodeBody {
-	code: i32,
-	message: String,
-	data: Vec<RsbCode>,
+impl SourceCode {
+	pub fn to_code(self, type_: String) -> Code {
+		Code {
+			type_,
+			data: self.into(),
+		}
+	}
 }
 
 impl Code {
