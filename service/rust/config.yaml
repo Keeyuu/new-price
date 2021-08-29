@@ -1,2 +1,5 @@
-mongo: aaa
-test: bbb
+mongo: 
+  url: mongodb://localhost:27017
+  database: price
+  table_code: code
+  table_day_main: day_main_
