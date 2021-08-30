@@ -1,6 +1,7 @@
 mod config;
 mod dao;
 mod model;
+mod service;
 use anyhow::{Context, Result};
 use config::Config;
 use mongodb::bson::doc;
