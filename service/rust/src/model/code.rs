@@ -1,4 +1,5 @@
 use anyhow::{Context, Result};
+use futures::stream::TryStreamExt;
 use mongodb::{bson::doc, results, Collection};
 use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Default)]
@@ -31,12 +32,20 @@ impl SourceCode {
     }
 }
 
-pub async fn get_stock_code(c: Collection<Code>) -> Result<()> {
-    let a = c
+pub async fn get_stock_code(c: Collection<Code>) -> Result<Vec<Code>> {
+    // let a = std::time::SystemTime::now();
+    let mut cursor = c
         .find(doc! {"type_":"stock"}, None)
         .await
         .context("get_stock_code err")?;
-    Ok(())
+    let mut list: Vec<Code> = Vec::new();
+    while let Some(code) = cursor.try_next().await? {
+        list.push(code)
+    }
+    // let b = std::time::SystemTime::now();
+    // let fiff = b.duration_since(a).expect("aaaaaaaaaaaaaaaaaa");
+	// println!("task {:?}",fiff);
+    Ok(list)
 }
 
 pub async fn insert_many(l: Vec<Code>, c: Collection<Code>) -> Result<results::InsertManyResult> {

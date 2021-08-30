@@ -20,9 +20,11 @@ async fn start(c: config::Config) -> Result<()> {
     // let a = model::Code {
     //     type_: String::from("ccc"),
     // };
-    // let col_code = database
-    //     .collection::<model::Code>(&c.mongo.table_code)
-    //     .await;
+    let col_code = database
+        .collection::<model::Code>(&c.mongo.table_code)
+        .await;
+    let list = model::code::get_stock_code(col_code).await?;
+    println!("has get list len{}", list.len());
     // import::import_code(&c, &database)
     //     .await
     //     .context("start 1")?;
