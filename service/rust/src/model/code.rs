@@ -32,19 +32,17 @@ impl SourceCode {
     }
 }
 
-pub async fn get_stock_code(c: Collection<Code>) -> Result<Vec<Code>> {
-    // let a = std::time::SystemTime::now();
+pub async fn get_stock_code(c: Collection<Code>) {}
+
+async fn get_type_code(c: Collection<Code>, s: &str) -> Result<Vec<Code>> {
     let mut cursor = c
-        .find(doc! {"type_":"stock"}, None)
+        .find(doc! {"type_":s}, None)
         .await
         .context("get_stock_code err")?;
     let mut list: Vec<Code> = Vec::new();
     while let Some(code) = cursor.try_next().await? {
         list.push(code)
     }
-    // let b = std::time::SystemTime::now();
-    // let fiff = b.duration_since(a).expect("aaaaaaaaaaaaaaaaaa");
-	// println!("task {:?}",fiff);
     Ok(list)
 }
 
