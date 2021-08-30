@@ -1,5 +1,4 @@
 use anyhow::{Context, Result};
-use futures::stream::TryStreamExt;
 use mongodb::{bson::doc, results, Collection};
 use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Default)]
