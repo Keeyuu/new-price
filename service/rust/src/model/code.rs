@@ -31,6 +31,14 @@ impl SourceCode {
     }
 }
 
+pub async fn get_stock_code(c: Collection<Code>) -> Result<()> {
+    let a = c
+        .find(doc! {"type_":"stock"}, None)
+        .await
+        .context("get_stock_code err")?;
+    Ok(())
+}
+
 pub async fn insert_many(l: Vec<Code>, c: Collection<Code>) -> Result<results::InsertManyResult> {
     c.insert_many(l, None).await.context("code insert_many err")
 }
