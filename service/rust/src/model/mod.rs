@@ -1,4 +1,4 @@
-mod model;
-pub use model::Code;
-pub use model::SourceCode;
+mod code;
+pub use code::Code;
+pub use code::SourceCode;
 // pub use model::ResCodeBody;

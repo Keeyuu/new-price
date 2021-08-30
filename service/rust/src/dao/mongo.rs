@@ -1,7 +1,5 @@
-use crate::model::Code;
 use anyhow::{Context, Result};
-use mongodb::{options, options::ClientOptions, Client};
-use std::borrow::Borrow;
+use mongodb::{options::ClientOptions, Client};
 pub struct Mongo {
 	database: mongodb::Database,
 }
@@ -20,16 +18,4 @@ impl Mongo {
 	pub async fn collection<T>(&self, name: &String) -> mongodb::Collection<T> {
 		self.database.collection::<T>(name)
 	}
-	pub async fn insert<T: serde::Serialize>(
-		&self,
-		name: &String,
-		doc: impl Borrow<T>,
-		options: impl Into<Option<options::InsertOneOptions>>,
-	) -> Result<()> {
-		let a = self.collection::<T>(name).await;
-		a.insert_one(doc, options).await?;
-		Ok(())
-	}
 }
-
-

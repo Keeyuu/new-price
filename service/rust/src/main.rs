@@ -21,11 +21,11 @@ async fn start(c: config::Config) -> Result<()> {
     //     type_: String::from("ccc"),
     // };
     // let col_code = database
-    // .collection::<model::Code>(&c.mongo.table_code)
-    // .await;
-    import::import_code(&c, &database)
-        .await
-        .context("start 1")?;
+    //     .collection::<model::Code>(&c.mongo.table_code)
+    //     .await;
+    // import::import_code(&c, &database)
+    //     .await
+    //     .context("start 1")?;
     // let filter = doc! { "type_": "ccc" };
     // let bbb = eee.find_one(filter, None).await?;
     // println!("{:?}", bbb);
