@@ -15,14 +15,15 @@ fn main() -> Result<()> {
 }
 
 async fn start(c: config::Config) -> Result<()> {
+    dao::request::easy_get("http://www.baidu.com/?tn=88093251_34_hao_pg").await?;
     // dao::test().await?;
-    let database = dao::Mongo::new(&c.mongo.url, &c.mongo.database).await?;
+    // let database = dao::Mongo::new(&c.mongo.url, &c.mongo.database).await?;
     // let a = model::Code {
     //     type_: String::from("ccc"),
     // };
-    let col_code = database
-        .collection::<model::Code>(&c.mongo.table_code)
-        .await;
+    // let col_code = database
+    //     .collection::<model::Code>(&c.mongo.table_code)
+    //     .await;
     // import::import_code(&c, &database)
     //     .await
     //     .context("start 1")?;
