@@ -1,14 +1,13 @@
-
-// pub extern "C" fn get_day_collection(base: String, code: String) -> String {
-//     let slice: &[u8] = code.as_ref();
-//     let mut index: u8 = 0;
-//     if slice.len() >= 1 {
-//         index = slice[slice.len() - 1] % 10;
-//     }
-//     format!("{}{}", base, index)
-// }
-
 #[no_mangle]
-pub extern "C" fn test(){
-    println!("test")
-}ew
+pub extern "C" fn get_day_collection(base: &str, code: &str) -> String {
+    let mut index: u8 = 0;
+    for i in code.bytes() {
+        index = i as u8 % 10;
+    }
+    format!("{}{}", base, index)
+}
+
+#[test]
+fn test_get_day_collection() {
+    assert_eq!(get_day_collection("codo_", "1"), "2".to_string());
+}
