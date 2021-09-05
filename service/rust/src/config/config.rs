@@ -12,7 +12,7 @@ pub struct Mongo {
 	pub url: String,
 	pub database: String,
 	pub table_code: String,
-	pub table_day_main: String,
+	pub table_day: String,
 }
 
 impl Config {
