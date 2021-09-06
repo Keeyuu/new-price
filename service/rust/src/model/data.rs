@@ -3,7 +3,9 @@ use anyhow::{Context, Result};
 use futures::stream::TryStreamExt;
 use mongodb::{bson::doc, results, Collection};
 use serde::{Deserialize, Serialize};
-#[derive(Debug, Serialize, Deserialize,Clone)]
+use std::collections::HashMap;
+const PointT: String = "top".to_string();
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Code {
     pub code: String,
     pub update_at: i64,
@@ -43,6 +45,16 @@ pub struct Day {
 
 fn default_resource_f64() -> f64 {
     0.0
+}
+
+pub struct node {
+    point: f64,
+    ddate: i64,
+    type_: String,
+}
+pub struct day_result {
+    score: f64,
+    //nodes: hashmap::Hasap,
 }
 
 pub async fn get_all_code(config: &Config, database: &mongodb::Database) -> Result<Vec<Code>> {

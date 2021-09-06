@@ -3,3 +3,4 @@ mongo:
   database: price
   table_code: new_code
   table_day: day
+  table_day_result: day_result
