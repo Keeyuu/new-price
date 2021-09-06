@@ -18,7 +18,7 @@ for item in shop_table.find():
     try:
         id_ = item["supplier_id"]
     except:
-        id_ = "10001"
+        id_ = "xxxx"
     else:
         if id_ not in supplier_list:
             index += 1
@@ -29,3 +29,6 @@ for item in shop_table.find():
             elif item["country"] == "TR":
                 shop_table.update_one({"shop_id": item["shop_id"]}, {
                     "$set": {"supplier_id": "10000"}})
+            else:
+                shop_table.update_one({"shop_id": item["shop_id"]}, {
+                    "$set": {"supplier_id": "10000", "country": "TR"}})
