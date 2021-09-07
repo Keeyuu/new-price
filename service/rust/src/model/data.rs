@@ -102,7 +102,7 @@ impl day_result {
         }
     }
 }
-//! wait to exchange update
+// * wait to exchange update
 pub async fn upsert_day_result(
     data: day_result,
     config: &Config,
