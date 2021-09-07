@@ -21,6 +21,10 @@ def code_insert_many(items):
     code_table.insert_many(items)
 
 
+def day_upsert_one(f, item):
+    day_table.update_one(f, item, upsert=True)
+
+
 def day_insert_many(items):
     day_table.insert_many(items)
 

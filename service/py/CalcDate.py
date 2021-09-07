@@ -6,8 +6,8 @@ class CalcDate():
     def __init__(self):
         self.date = {}
         self.date["code"] = {"year": 2021, "month": 9, "day": 1}
-        self.date["start"] = {"year": 2019, "month": 8, "day": 25}
-        self.date["end"] = {"year": 2021, "month": 9, "day": 1}
+        self.date["start"] = {"year": 2021, "month": 9, "day": 1}
+        self.date["end"] = {"year": 2021, "month": 9, "day": 6}
 
     def update(self, index="code"):
         self.date[index] = {"year": int(time.strftime(

@@ -6,17 +6,10 @@ use anyhow::{Context, Result};
 use config::Config;
 use tokio;
 mod import;
-
 #[tokio::main]
 async fn main() -> Result<()> {
     let config = Config::get().context("main 1")?;
     let database = dao::Mongo::new(&config.mongo.url, &config.mongo.database).await?;
-
-    let list = model::data::get_all_code(&config, &database.database).await?;
-    let ref a = list[0];
-    let day_list = model::data::get_all_day(&a.code, &config, &database.database).await?;
-    let ref b = day_list[0];
-    println!("{:?}", b);
     Ok(())
 }
 
