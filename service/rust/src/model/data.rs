@@ -104,14 +104,15 @@ impl day_result {
 }
 // * wait to exchange update
 pub async fn upsert_day_result(
-    data: day_result,
-    col_result: mongodb::Collection<day_result>, //config: &Config,
+    data: &day_result,
+    col_result: &mongodb::Collection<day_result>, //config: &Config,
                                                   //database: &mongodb::Database
 ) -> Result<()> {
     col_result
         .delete_one(doc! {"code": &data.code}, None)
-        .await?;
-    col_result.insert_one(data, None).await?;
+        .await
+        .context("delete_one err")?;
+    col_result.insert_one(data, None).await.context("insert_one err")?;
     Ok(())
 }
 
