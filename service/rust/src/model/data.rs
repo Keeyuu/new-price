@@ -14,7 +14,7 @@ pub struct Code {
 
 impl Code {
     pub async fn get_all_day(
-        self,
+        &self,
         config: &Config,
         database: &mongodb::Database,
     ) -> Result<Vec<Day>> {
@@ -69,25 +69,25 @@ fn default_resource_f64() -> f64 {
 //-------------------------------------------------------------------------
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct node {
-    point: f64,
-    ddate: i64,
-    type_: String,
+    pub point: f64,
+    pub ddate: i64,
+    pub type_: String,
 }
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct center {
-    low: f64,
-    top: f64,
-    child: Box<Vec<center>>,
+    pub low: f64,
+    pub top: f64,
+    pub child: Box<Vec<center>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct day_result {
-    code: String,
-    score: f64,
-    ddate: i64,
-    status: Vec<String>,
-    nodes: HashMap<u8, Vec<node>>,
-    centers: HashMap<u8, Vec<center>>,
+    pub code: String,
+    pub score: f64,
+    pub ddate: i64,
+    pub status: Vec<String>,
+    pub nodes: HashMap<u8, Vec<node>>,
+    pub centers: HashMap<u8, Vec<center>>,
 }
 
 impl day_result {
