@@ -105,10 +105,9 @@ impl day_result {
 // * wait to exchange update
 pub async fn upsert_day_result(
     data: day_result,
-    config: &Config,
-    database: &mongodb::Database,
+    col_result: mongodb::Collection<day_result>, //config: &Config,
+                                                  //database: &mongodb::Database
 ) -> Result<()> {
-    let col_result = database.collection::<day_result>(&config.mongo.table_day_result);
     col_result
         .delete_one(doc! {"code": &data.code}, None)
         .await?;

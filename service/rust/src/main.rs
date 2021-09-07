@@ -5,6 +5,7 @@ mod service;
 use anyhow::{Context, Result};
 use config::Config;
 use tokio;
+mod calc;
 mod import;
 #[tokio::main]
 async fn main() -> Result<()> {
