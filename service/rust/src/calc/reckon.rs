@@ -118,10 +118,46 @@ impl ReckonNode_one {
                 let mut valids: Vec<data::node> = Vec::new();
                 let mut cache: Vec<data::node> = Vec::new();
                 let mut index = 1;
-                let mut last = String::new();
+                let mut last = list[0].clone();
+                let mut llast: i64 = 20180101;
+                cache.push(list[0].clone());
                 while index < list.len() - 1 {
+                    let ref now = list[index];
+                    if now.type_ == last.type_ {
+                        //* same to cache else check last cache
+                        cache.push(now.clone())
+                    } else {
+                        if interval_day(last.ddate, now.ddate) >= 2 {
+                            let mut tmp: Vec<data::node> = Vec::new();
+                            // *step one delete by date
+                            for item in cache.pop() {
+                                if interval_day(llast, item.ddate) < 2 {
+                                    continue;
+                                }
+                                tmp.push(item);
+                            }
+                            // * elect new node
+                            if last.type_ == top {
+                                tmp.sort_by(|b, a| (a.point).partial_cmp(&b.point).unwrap())
+                            } else if last.type_ == low {
+                                tmp.sort_by(|a, b| (a.point).partial_cmp(&b.point).unwrap())
+                            } else {
+                                panic!("type err not in low or top")
+                            }
+                            if tmp.len() > 0 {
+                                println!("{:?}", &tmp);
+                                valids.push(tmp[0].clone());
+                                llast = tmp[0].ddate;
+                                last = now.clone(); //*  nest status
+                                cache = Vec::new();
+                                cache.push(now.clone())
+                            }
+                        }
+                    }
                     index += 1;
+                    println!("{}", index);
                 }
+                *list = valids
             }
         }
     }
@@ -138,6 +174,13 @@ impl Reckoner for ReckonNode_two {
 }
 
 //-----------------------------------------------------------------------
+fn find_exteme<T: Clone>(i: &Vec<T>, func: fn(&T, &T) -> bool) -> T {
+    if i.len() == 1 {
+        return i[0].clone();
+    } else {
+    }
+    i[0].clone()
+}
 
 pub fn interval_day(start: i64, end: i64) -> u32 {
     let (y, m, d) = parse_date(start);
@@ -168,6 +211,7 @@ fn valid_day(i: Date<Utc>) -> bool {
         _ => true,
     }
 }
+
 //-----------------------------------------------------------------------
 #[test]
 fn test_parse_data() {
@@ -181,6 +225,6 @@ fn test_parse_data() {
 
 #[test]
 fn test_interval_day() {
-    assert_eq!(22, interval_day(20210801, 20210901))
+    assert_eq!(22, interval_day(20180801, 20210901))
 }
 //-----------------------------------------------------------------------

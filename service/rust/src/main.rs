@@ -11,14 +11,14 @@ mod import;
 async fn main() -> Result<()> {
     let config = Config::get().context("main 1")?;
     let database = dao::Mongo::new(&config.mongo.url, &config.mongo.database).await?;
-    let code_list = model::data::get_all_code(&config, &database.database).await?;
-    let mut calc =
-        calc::reckon::Calc::new(code_list[0].clone(), &config, &database.database).await?;
-    calc.append_reckoner(Box::new(calc::reckon::ReckonNode_one {}))
-        .save_result()
-        .await?;
+    let mut code_list = model::data::get_all_code(&config, &database.database).await?;
+    for i in code_list.into_iter() {
+        let calc = calc::reckon::Calc::new(i, &config, &database.database).await?;
+        calc.append_reckoner(Box::new(calc::reckon::ReckonNode_one {}))
+            .save_result()
+            .await?;
+    }
     println!("--------------------------");
-    println!("{:?}", code_list.len());
     Ok(())
 }
 
