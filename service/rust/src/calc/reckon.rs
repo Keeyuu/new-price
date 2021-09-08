@@ -44,6 +44,8 @@ impl Calc {
             item.reckon(&self.data, &mut self.result)?;
         }
         self.result.code = self.code.code.clone();
+        self.result.ddate = self.code.update_at.clone();
+        println!("{:?}", &self.result.nodes.len());
         data::upsert_day_result(&self.result, &self.table).await?;
         Ok(())
     }
@@ -57,15 +59,49 @@ impl Reckoner for ReckonNode_1 {
     fn reckon(&self, i: &Self::Input, o: &mut Self::Output) -> Result<()> {
         let mut index: usize = 1;
         while index < i.len() - 2 {
-            let ref last = i[index - 1];
-            let ref now = i[index];
-            let ref next = i[index + 1];
-            //println!("{:?},{:?},{:?}", last, now, next);
-            println!("now:{}", index);
+            let ref last = i[index - 1].close;
+            let ref now = i[index].close;
+            let ref next = i[index + 1].close;
+            let mut node = data::node {
+                point: *now,
+                ddate: i[index].ddate,
+                type_: String::from(data::PointL),
+            };
+            if now < last && now < next {
+                let list = o.nodes.get_mut(&String::from("one"));
+                match list {
+                    None => {
+                        let mut list = Vec::new();
+                        list.push(node);
+                        o.nodes.insert(String::from("one"), list);
+                    }
+                    Some(list) => {
+                        list.push(node);
+                    }
+                }
+            } else if now > last && now > next {
+                node.type_ = String::from(data::PointT);
+                let list = o.nodes.get_mut(&String::from("one"));
+                match list {
+                    None => {
+                        let mut list = Vec::new();
+                        list.push(node);
+                        o.nodes.insert(String::from("one"), list);
+                    }
+                    Some(list) => {
+                        list.push(node);
+                    }
+                }
+            }
             index += 1;
         }
+        self.filter(o);
         Ok(())
     }
+}
+
+impl ReckonNode_1 {
+    fn filter(&self, o: &mut data::day_result) {}
 }
 
 pub struct ReckonNode_2 {}

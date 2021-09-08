@@ -4,8 +4,8 @@ use futures::stream::TryStreamExt;
 use mongodb::{bson::doc, results, Collection};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-const PointT: &str = "top";
-const PointL: &str = "low";
+pub const PointT: &str = "top";
+pub const PointL: &str = "low";
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Code {
     pub code: String,
@@ -86,8 +86,8 @@ pub struct day_result {
     pub score: f64,
     pub ddate: i64,
     pub status: Vec<String>,
-    pub nodes: HashMap<u8, Vec<node>>,
-    pub centers: HashMap<u8, Vec<center>>,
+    pub nodes: HashMap<String, Vec<node>>,
+    pub centers: HashMap<String, Vec<center>>,
 }
 
 impl day_result {
@@ -97,8 +97,8 @@ impl day_result {
             score: 0.0,
             status: Vec::<String>::new(),
             ddate: -1,
-            nodes: HashMap::<u8, Vec<node>>::new(),
-            centers: HashMap::<u8, Vec<center>>::new(),
+            nodes: HashMap::<String, Vec<node>>::new(),
+            centers: HashMap::<String, Vec<center>>::new(),
         }
     }
 }
@@ -112,7 +112,10 @@ pub async fn upsert_day_result(
         .delete_one(doc! {"code": &data.code}, None)
         .await
         .context("delete_one err")?;
-    col_result.insert_one(data, None).await.context("insert_one err")?;
+    col_result
+        .insert_one(data, None)
+        .await
+        .context("insert_one err")?;
     Ok(())
 }
 
@@ -128,6 +131,11 @@ pub async fn get_all_code(config: &Config, database: &mongodb::Database) -> Resu
     Ok(list)
 }
 
+//-------------------------------------------------------------------------
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct TestMap {
+    pub d: HashMap<i64, String>,
+}
 //-------------------------------------------------------------------------
 
 //pub struct Code {

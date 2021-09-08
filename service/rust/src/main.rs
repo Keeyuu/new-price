@@ -11,12 +11,12 @@ mod import;
 async fn main() -> Result<()> {
     let config = Config::get().context("main 1")?;
     let database = dao::Mongo::new(&config.mongo.url, &config.mongo.database).await?;
-    let code_list = model::data::get_all_code(&config, &database.database).await?;
-    let mut calc = calc::reckon::Calc::new(code_list[0].clone(), &config, &database.database).await?;
-    calc.append_reckoner(Box::new(calc::reckon::ReckonNode_1{}));
-    calc.save_result().await?;
-    println!("--------------------------");
-    println!("{:?}", code_list.len());
+    //let code_list = model::data::get_all_code(&config, &database.database).await?;
+    //let mut calc = calc::reckon::Calc::new(code_list[0].clone(), &config, &database.database).await?;
+    //calc.append_reckoner(Box::new(calc::reckon::ReckonNode_1{}));
+    //calc.save_result().await?;
+    //println!("--------------------------");
+    //println!("{:?}", code_list.len());
     Ok(())
 }
 
