@@ -1,6 +1,8 @@
 use crate::config::Config;
 use crate::model::data;
 use anyhow::{Context, Result};
+use chrono::prelude::*;
+use chrono::Duration;
 //-----------------------------------------------------------------------
 pub trait Reckoner {
     type Output;
@@ -33,11 +35,13 @@ impl Calc {
             code: code,
         })
     }
+    // ! first in last out so assure one in last
     pub fn append_reckoner(
-        &mut self,
+        mut self,
         item: Box<dyn Reckoner<Input = Vec<data::Day>, Output = data::day_result>>,
-    ) {
+    ) -> Self {
         self.reckoners.push(item);
+        self
     }
     pub async fn save_result(&mut self) -> Result<()> {
         for item in self.reckoners.iter() {
@@ -51,9 +55,9 @@ impl Calc {
     }
 }
 //-----------------------------------------------------------------------
-pub struct ReckonNode_1 {}
+pub struct ReckonNode_one {}
 
-impl Reckoner for ReckonNode_1 {
+impl Reckoner for ReckonNode_one {
     type Output = data::day_result;
     type Input = Vec<data::Day>;
     fn reckon(&self, i: &Self::Input, o: &mut Self::Output) -> Result<()> {
@@ -100,16 +104,83 @@ impl Reckoner for ReckonNode_1 {
     }
 }
 
-impl ReckonNode_1 {
-    fn filter(&self, o: &mut data::day_result) {}
+impl ReckonNode_one {
+    fn filter(&self, o: &mut data::day_result) {
+        let node_one = o.nodes.get_mut(&String::from("one"));
+        match node_one {
+            None => return,
+            Some(list) => {
+                if list.len() <= 3 {
+                    return;
+                }
+                let top = String::from(data::PointT);
+                let low = String::from(data::PointL);
+                let mut valids: Vec<data::node> = Vec::new();
+                let mut cache: Vec<data::node> = Vec::new();
+                let mut index = 1;
+                let mut last = String::new();
+                while index < list.len() - 1 {
+                    index += 1;
+                }
+            }
+        }
+    }
 }
 
-pub struct ReckonNode_2 {}
+pub struct ReckonNode_two {}
 
-impl Reckoner for ReckonNode_2 {
+impl Reckoner for ReckonNode_two {
     type Output = data::day_result;
     type Input = Vec<data::Day>;
     fn reckon(&self, i: &Self::Input, o: &mut Self::Output) -> Result<()> {
         Ok(())
     }
 }
+
+//-----------------------------------------------------------------------
+
+pub fn interval_day(start: i64, end: i64) -> u32 {
+    let (y, m, d) = parse_date(start);
+    let (y_, m_, d_) = parse_date(end);
+    let mut interval: u32 = 0;
+    let mut new_start = Utc.ymd(y, m, d) + Duration::days(1);
+    let new_end = Utc.ymd(y_, m_, d_);
+    while new_start < new_end {
+        if valid_day(new_start) {
+            interval += 1;
+        }
+        new_start = new_start + Duration::days(1);
+    }
+    interval
+}
+
+fn parse_date(i: i64) -> (i32, u32, u32) {
+    let y = i / 10000;
+    let m = i / 100;
+    let m = m - y * 100;
+    let d = i % 100;
+    (y as i32, m as u32, d as u32)
+}
+
+fn valid_day(i: Date<Utc>) -> bool {
+    match i.weekday() {
+        Weekday::Sat | Weekday::Sun => false,
+        _ => true,
+    }
+}
+//-----------------------------------------------------------------------
+#[test]
+fn test_parse_data() {
+    let date = parse_date(20211231);
+    assert_eq!(date, (2021, 12, 31))
+}
+//fn test_valid_day() {
+//    assert_eq!(false, valid_day(20210905));
+//    assert_eq!(true, valid_day(20210906))
+//}
+
+#[test]
+fn test_interval_day() {
+    assert_eq!(22, interval_day(20210801, 20210901))
+}
+//-----------------------------------------------------------------------
